@@ -1,5 +1,5 @@
 const apiKey = 'b6a710ce24f30603d46bbb895d784eb2';
-const baseUrlApi = `https://api.openweathermap.org/data/2.5/weather?zip={{zipCode}}&APPID=${apiKey}`;
+const baseUrlApi = `https://api.openweathermap.org/data/2.5/weather?zip={{zipCode}}&APPID=${apiKey}&units=metric`;
 
 const retrieveData = async (url) => { 
     const request = await fetch(url);
@@ -62,10 +62,12 @@ const updateUI = async (data) => {
 
 const generateClick = function () {
     const zipCode = document.getElementById('zip').value;
-    getWeatherInfo(zipCode)
-        .then(saveWeatherInfo)
-        .then(getAll)
-        .then(updateUI);
+    if (zipCode) {
+        getWeatherInfo(zipCode)
+            .then(saveWeatherInfo)
+            .then(getAll)
+            .then(updateUI);
+    }
 };
 
 document.getElementById('generate').addEventListener('click', generateClick);
